@@ -7,7 +7,7 @@ class Store {
     this.listeners = []; // Слушатели изменений состояния
     this.setState({
       ...this.state,
-      // Сохранение ID последнего уникального элемента
+      // Создание и сохранение ID последнего уникального элемента
       lastUID: this.state.list.length
         ? this.state.list[this.state.list.length - 1].code
         : 1
