@@ -20,12 +20,14 @@ function App({ store }) {
       </div>
       <div className='App-center'>
         <div className='List'>{
-          list.map(item =>
-            <div key={item.code} className='List-item'>
+          list.map(item => {
+            const countTimes = setCountTimes(item.count)
+
+            return <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title} {item.count && `| Выделялось ${item.count} раз`}</div>
+                <div className='Item-title'>{item.title} {item.count && `| Выделялось ${item.count} ${countTimes}`}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
@@ -33,7 +35,7 @@ function App({ store }) {
                 </div>
               </div>
             </div>
-          )}
+          })}
         </div>
       </div>
     </div>
