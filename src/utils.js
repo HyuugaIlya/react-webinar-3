@@ -37,8 +37,8 @@ export function setCountTimes(count) {
   const strEnd = str.at(str.length - 1);
   const strLast = str.at(str.length - 2) + strEnd;
 
-  if (strEnd >= '2' && strEnd <= '4') {
-    if (strLast >= '12' && strLast <= '14') {
+  if (strEnd === '2' || strEnd === '3' || strEnd === '4') {
+    if (strLast === '12' || strLast === '13' || strLast === '14') {
       return 'раз'
     } else {
       return 'раза'
