@@ -1,12 +1,19 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = initState; // Корзина товаров
     this.listeners = []; // Слушатели изменений состояния
+    this.setState({
+      ...this.state,
+      // Инициализация корзины товаров
+      cart: {
+        items: [],
+        totalCount: null,
+        totalPrice: null
+      }
+    })
   }
 
   /**
@@ -41,48 +48,40 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param item {Object}
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
+  addItemToCart(item) {
+    // Добавление в корзину товаров только с уникальным идентификатором
+    // и учет количества товара с идентичным идентификатором
+    this.state.cart.items.find(i => i.code === item.code)
+      ? this.state.cart.items.find(i => i.code === item.code).count++
+      : this.setState({
+        ...this.state,
+        cart: {
+          items: [...this.state.cart.items, {
+            code: item.code,
+            title: item.title,
+            price: item.price,
+            count: 1
+          }]
+        }
+      })
+  }
 
   /**
-   * Удаление записи по коду
-   * @param code
+   * Удаление товара из корзины по коду
+   * @param code {number}
    */
-  deleteItem(code) {
+  removeItemFromCart(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      cart: {
+        items: this.state.cart.items.filter(item => item.code !== code)
+      }
     })
   };
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
 }
 
 export default Store;

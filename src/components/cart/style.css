@@ -1,0 +1,19 @@
+.Cart {
+    display: flex;
+    justify-content: flex-end;
+    padding: 30px 20px;
+}
+
+.Cart button {
+    width: 75px;
+}
+
+.Cart-text {
+    font-size: 18px;
+    padding-right: 20px;
+}
+
+.Cart-text_b {
+    font-size: 18px;
+    padding-right: 20px;
+}

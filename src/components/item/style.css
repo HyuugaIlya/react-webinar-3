@@ -9,12 +9,28 @@
   color: #fff;
 }
 
+.Item-code,
+.Item-title,
+.Item-price,
+.Item-count {
+  display: flex;
+  align-items: center;
+}
+
+
 .Item-code {
   padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
   width: 100%;
+  padding: 20px 10px;
+}
+
+.Item-price,
+.Item-count {
+  justify-content: flex-end;
+  white-space: nowrap;
   padding: 20px 10px;
 }
 

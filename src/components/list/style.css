@@ -1,7 +1,18 @@
 .List {
-
+  display: flex;
+  flex-direction: column;
 }
 
 .List-item {
   border-bottom: 1px dashed #ccc;
+}
+
+.List-item:nth-of-type(1) {
+  border-top: 1px dashed #ccc;
+}
+
+.List-summ {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
 }

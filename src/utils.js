@@ -4,7 +4,7 @@
  * @param value {Number} Число, под которое выбирается вариант формы.
  * @param variants {Object<String>} Варианты форм множественного числа.
  * @example plural(5, {one: 'товар', few: 'товара', many: 'товаров'})
- * @param [locale] {String} Локаль (код языка)
+ * @param [locale] {String} Локал (код языка)
  * @returns {*|string}
  */
 export function plural(value, variants = {}, locale = 'ru-RU') {
