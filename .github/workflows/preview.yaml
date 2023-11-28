@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-name: Vercel Preview Deployment
-=======
 name: Build Test
->>>>>>> e76a78bcc0df616abef94f7e147e1b037be5aec9
 env:
   VERCEL_ORG_ID: team_nuZTpjMFtjg6nYvRq8D59qS1
   VERCEL_PROJECT_ID: prj_DjaAeRmIZ6Nsl8pNbWl8YftMgHbO
@@ -20,18 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-<<<<<<< HEAD
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=1Ofcwcd6Y7VNHLQoGns6Dqb6
-
-      - name: Build Project Artifacts
-        run: vercel build --token=1Ofcwcd6Y7VNHLQoGns6Dqb6
-
-      - name: Deploy Project Artifacts to Vercel
-=======
       - name: Install CLI
         run: npm install --global vercel@latest
 
@@ -42,5 +26,4 @@ jobs:
         run: vercel build --token=1Ofcwcd6Y7VNHLQoGns6Dqb6
 
       - name: Deploy
->>>>>>> e76a78bcc0df616abef94f7e147e1b037be5aec9
         run: vercel deploy --prebuilt --token=1Ofcwcd6Y7VNHLQoGns6Dqb6
