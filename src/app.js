@@ -8,7 +8,6 @@ import { setCountTimes } from './utils';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-
   const list = store.getState().list;
 
   return (
