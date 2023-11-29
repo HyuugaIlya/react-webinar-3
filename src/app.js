@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import List from "./components/list";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
