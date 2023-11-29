@@ -19,8 +19,8 @@ function List({ list, onAction }) {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({

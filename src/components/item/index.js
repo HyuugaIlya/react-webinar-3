@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
@@ -8,7 +8,7 @@ function Item({ item, onAction }) {
 
   const cn = bem('Item');
 
-  const actionFunc = () => {
+  const actionFunc = useCallback(() => {
     if (item.count) {
       // if (window.confirm('Вы действительно хотите удалить этот товар из корзины?')) {
       onAction(item.code);
@@ -16,7 +16,7 @@ function Item({ item, onAction }) {
     } else {
       onAction(item);
     }
-  }
+  }, [item]);
 
   return (
     <div className={cn()}>
@@ -37,7 +37,7 @@ function Item({ item, onAction }) {
       </div>
     </div>
   );
-}
+};
 
 Item.propTypes = {
   item: PropTypes.shape({
@@ -46,7 +46,7 @@ Item.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number
   }).isRequired,
-  onAdd: PropTypes.func
+  onAction: PropTypes.func
 };
 
 Item.defaultProps = {

@@ -12,13 +12,13 @@ function CartModal({
     setIsModal,
     totalPrice
 }) {
-    const cn = bem('CartModal')
+    const cn = bem('CartModal');
 
     useEffect(() => {
         if (!cart.length) {
             setIsModal(!isModal)
         }
-    }, [cart.length])
+    }, [cart.length]);
 
     return (
         <div className='root'>
@@ -39,8 +39,8 @@ function CartModal({
                 </div>
             </div>
         </div >
-    )
-}
+    );
+};
 
 CartModal.propTypes = {
     cart: PropTypes.arrayOf(PropTypes.shape({

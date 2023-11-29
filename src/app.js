@@ -22,7 +22,7 @@ function App({ store }) {
     onAddItem: useCallback((item) => {
       store.addItemToCart(item);
     }, [store])
-  }
+  };
 
   return (
     <PageLayout>
@@ -39,6 +39,6 @@ function App({ store }) {
       />
     </PageLayout>
   );
-}
+};
 
 export default App;

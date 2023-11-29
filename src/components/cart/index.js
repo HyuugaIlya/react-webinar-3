@@ -41,8 +41,8 @@ function Cart({
                 Перейти
             </button>
         </div>
-    )
-}
+    );
+};
 
 Cart.propTypes = {
     cart: PropTypes.arrayOf(PropTypes.shape({
