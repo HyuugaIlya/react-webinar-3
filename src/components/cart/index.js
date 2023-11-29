@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
-import { cn as bem } from '@bem-react/classname';
-import CartModal from "./cart-modal/cart-modal";
+import CartModal from "./cart-modal";
+import { plural } from "../../utils";
+import { cn as bem } from "@bem-react/classname";
 
 import './style.css';
 
-function Cart({ cart, onRemove, totalCount }) {
+function Cart({
+    cart,
+    onRemove,
+    totalCount,
+    totalPrice
+}) {
     const [isModal, setIsModal] = useState(false);
 
     const cn = bem('Cart');
@@ -14,23 +20,46 @@ function Cart({ cart, onRemove, totalCount }) {
         <div className={cn()}>
             {isModal && <CartModal
                 cart={cart}
+                totalPrice={totalPrice}
                 onRemove={onRemove}
                 isModal={isModal}
                 setIsModal={setIsModal}
             />}
-            <span className={cn('text')}>В корзине:</span>
-            <b className={cn('text_b')}>{totalCount ? totalCount : 'пусто'}</b>
-            <button disabled={!cart.length} onClick={() => setIsModal(!isModal)}>Перейти</button>
+            <span className={cn() + '__text'}>В корзине:</span>
+            <b className={cn() + '__text_b'}>{cart.length
+                ? `${totalCount} ${plural(totalCount, {
+                    one: 'товар',
+                    few: 'товара',
+                    many: 'товаров'
+                })} / ${totalPrice} ₽`
+                : 'пусто'}
+            </b>
+            <button
+                disabled={!cart.length}
+                onClick={() => setIsModal(!isModal)}
+            >
+                Перейти
+            </button>
         </div>
     )
 }
 
 Cart.propTypes = {
-    onAdd: PropTypes.func
+    cart: PropTypes.arrayOf(PropTypes.shape({
+        code: PropTypes.number,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        count: PropTypes.number
+    })).isRequired,
+    onRemove: PropTypes.func,
+    totalCount: PropTypes.number,
+    totalPrice: PropTypes.number
 };
 
 Cart.defaultProps = {
-    onAdd: () => { }
-}
+    onRemove: () => {
+
+    }
+};
 
 export default React.memo(Cart);

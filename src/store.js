@@ -48,15 +48,52 @@ class Store {
   }
 
   /**
+   * Учет общего количества товаров и их суммы в корзине
+   */
+  setCartTotals() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        // Обновление значения общего количества товаров в корзине
+        totalCount: this.state.cart.items.reduce((count, current) => {
+          return count + current.count;
+        }, 0),
+        // Обновление значения общей суммы товаров в корзине
+        totalPrice: this.state.cart.items.reduce((price, current) => {
+          return price + (current.count * current.price);
+        }, 0),
+      }
+    })
+  };
+
+  /**
    * Добавление товара в корзину
    * @param item {Object}
    */
   addItemToCart(item) {
+    const cartItem = this.state.cart.items.find(i => i.code === item.code);
+
     // Добавление в корзину товаров только с уникальным идентификатором
     // и учет количества товара с идентичным идентификатором
-    this.state.cart.items.find(i => i.code === item.code)
-      ? this.state.cart.items.find(i => i.code === item.code).count++
-      : this.setState({
+    if (cartItem) {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          items: this.state.cart.items.map(i => {
+            if (i.code === item.code) {
+              return {
+                ...i,
+                count: i.count + 1
+              }
+            }
+            return i
+          })
+        }
+      })
+    } else {
+      this.setState({
         ...this.state,
         cart: {
           items: [...this.state.cart.items, {
@@ -67,6 +104,11 @@ class Store {
           }]
         }
       })
+    }
+
+    //Вызов метода setCartTotals для обновления общего количества товаров
+    //и их суммы в корзине
+    this.setCartTotals();
   }
 
   /**
@@ -76,11 +118,15 @@ class Store {
   removeItemFromCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
+      // Новый список в корзине, в котором не будет удаляемого товара
       cart: {
         items: this.state.cart.items.filter(item => item.code !== code)
       }
     })
+
+    //Вызов метода setCartTotals для обновления общего количества товаров
+    //и их суммы в корзине
+    this.setCartTotals();
   };
 }
 

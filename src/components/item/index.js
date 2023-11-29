@@ -1,29 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { plural } from "../../utils";
+import { cn as bem } from "@bem-react/classname";
+
 import './style.css';
 
-function Item({ item, onAdd }) {
+function Item({ item, onAction }) {
 
-  const callbacks = {
-    onAdd: () => {
-      onAdd(item);
+  const cn = bem('Item');
+
+  const actionFunc = () => {
+    if (item.count) {
+      // if (window.confirm('Вы действительно хотите удалить этот товар из корзины?')) {
+      onAction(item.code);
+      // }
+    } else {
+      onAction(item);
     }
   }
 
   return (
-    <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}>
-      <div className='Item-code'>{item.code}</div>
-      <div className='Item-title'>
+    <div className={cn()}>
+      <div className={cn() + '__code'}>{item.code}</div>
+      <div className={cn() + '__title'}>
         {item.title}
       </div>
-      <div className='Item-price'>
+      <div className={cn() + '__price'}>
         {item.price} &#8381;
       </div>
-      <div className='Item-actions'>
-        <button onClick={callbacks.onAdd}>
-          Добавить
+      {item.count && <div className={cn() + '__count'}>
+        {item.count} шт.
+      </div>}
+      <div className={cn() + '__actions'}>
+        <button onClick={actionFunc}>
+          {item.count ? 'Удалить' : 'Добавить'}
         </button>
       </div>
     </div>
@@ -34,17 +43,16 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
+    count: PropTypes.number
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func
+  onAdd: PropTypes.func
 };
 
 Item.defaultProps = {
-  onDelete: () => {
+  onAction: () => {
+
   },
-  onSelect: () => {
-  },
-}
+};
 
 export default React.memo(Item);

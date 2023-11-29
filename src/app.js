@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import List from "./components/list";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
@@ -13,10 +13,6 @@ function App({ store }) {
 
   const list = store.getState().list;
   const cart = store.getState().cart;
-
-  const totalCount = cart.items.reduce((count, currentItem) => {
-    return count + currentItem.count;
-  }, 0)
 
   const callbacks = {
     onRemoveItem: useCallback((code) => {
@@ -33,12 +29,13 @@ function App({ store }) {
       <Head title='Магазин' />
       <Cart
         cart={cart.items}
-        totalCount={totalCount}
+        totalCount={cart.totalCount}
+        totalPrice={cart.totalPrice}
         onRemove={callbacks.onRemoveItem}
       />
       <List
         list={list}
-        onAdd={callbacks.onAddItem}
+        onAction={callbacks.onAddItem}
       />
     </PageLayout>
   );
