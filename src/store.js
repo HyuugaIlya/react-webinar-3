@@ -62,9 +62,9 @@ class Store {
         // Обновление значения общей суммы товаров в корзине
         totalPrice: this.state.cart.items.reduce((price, current) => {
           return price + (current.count * current.price);
-        }, 0),
+        }, 0)
       }
-    })
+    });
   };
 
   /**
@@ -91,11 +91,12 @@ class Store {
             return i
           })
         }
-      })
+      });
     } else {
       this.setState({
         ...this.state,
         cart: {
+          ...this.state.cart,
           items: [...this.state.cart.items, {
             code: item.code,
             title: item.title,
@@ -103,7 +104,7 @@ class Store {
             count: 1
           }]
         }
-      })
+      });
     }
 
     //Вызов метода setCartTotals для обновления общего количества товаров
@@ -120,9 +121,10 @@ class Store {
       ...this.state,
       // Новый список в корзине, в котором не будет удаляемого товара
       cart: {
+        ...this.state.cart,
         items: this.state.cart.items.filter(item => item.code !== code)
       }
-    })
+    });
 
     //Вызов метода setCartTotals для обновления общего количества товаров
     //и их суммы в корзине
