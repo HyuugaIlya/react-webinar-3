@@ -52,7 +52,7 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  padding: 20px;
+  padding: 20px 20px 0 20px;
 }
 
 .CartModal__summ b:last-child {
