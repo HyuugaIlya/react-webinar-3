@@ -1,9 +1,23 @@
-.Head {
+.Head,
+.Head-modal {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   height: 80px;
   background: #f5f5f5;
 }
 
-.Head h1 {
+.Head h1,
+.Head-modal h1 {
   margin: 0;
   padding: 20px 20px 10px;
+}
+
+.Head-modal {
+  border-radius: 15px 15px 0 0;
+}
+
+.Head-modal button {
+  margin: auto 20px;
+  width: 75px;
 }

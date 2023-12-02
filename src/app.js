@@ -9,7 +9,6 @@ import Head from "./components/head";
 import CartControls from './components/cart-controls';
 import List from "./components/list";
 import ModalLayout from './components/modal-layout';
-import CartHead from './components/cart-head';
 import CartLayout from './components/cart-layout';
 import CartSumm from './components/cart-summ';
 
@@ -56,11 +55,11 @@ function App({ store }) {
       />
     </PageLayout>
     {isModal && <ModalLayout>
-      <CartHead
-        title='Корзина'
-        isModal={isModal}
-        setIsModal={setIsModal}
-      />
+      <Head title='Корзина'>
+        <button onClick={() => setIsModal(!isModal)}>
+          Закрыть
+        </button>
+      </Head>
       <CartLayout>
         <List
           list={cart.items}
