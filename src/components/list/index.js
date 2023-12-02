@@ -9,15 +9,14 @@ function List({ list, onAction }) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{
-      list.map(item =>
+    <div className={cn()}>
+      {list.map(item =>
         <div key={item.code} className={cn('item')}>
           <Item
             item={item}
             onAction={onAction}
           />
-        </div>
-      )}
+        </div>)}
     </div>
   );
 };

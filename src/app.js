@@ -1,8 +1,17 @@
-import React, { useCallback } from 'react';
-import List from "./components/list";
-import Head from "./components/head";
+import React, {
+  useCallback,
+  useState,
+  useEffect
+} from 'react';
+
 import PageLayout from "./components/page-layout";
-import Cart from './components/cart';
+import Head from "./components/head";
+import CartControls from './components/cart-controls';
+import List from "./components/list";
+import ModalLayout from './components/modal-layout';
+import CartHead from './components/cart-head';
+import CartLayout from './components/cart-layout';
+import CartSumm from './components/cart-summ';
 
 /**
  * Приложение
@@ -10,35 +19,57 @@ import Cart from './components/cart';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
+  const [isModal, setIsModal] = useState(false);
 
   const list = store.getState().list;
   const cart = store.getState().cart;
+
+  useEffect(() => {
+    if (!cart.items.length) {
+      setIsModal(false);
+    }
+  }, [cart.items.length]);
 
   const callbacks = {
     onRemoveItem: useCallback((code) => {
       store.removeItemFromCart(code);
     }, [store]),
 
-    onAddItem: useCallback((item) => {
-      store.addItemToCart(item);
+    onAddItem: useCallback((code) => {
+      store.addItemToCart(code);
     }, [store])
   };
 
-  return (
+  return (<>
     <PageLayout>
       <Head title='Магазин' />
-      <Cart
-        cart={cart.items}
-        totalCount={cart.totalCount}
+      <CartControls
+        cartLength={cart.items.length}
         totalPrice={cart.totalPrice}
-        onRemove={callbacks.onRemoveItem}
+        totalCount={cart.totalCount}
+        isModal={isModal}
+        setIsModal={setIsModal}
       />
       <List
         list={list}
         onAction={callbacks.onAddItem}
       />
     </PageLayout>
-  );
+    {isModal && <ModalLayout>
+      <CartHead
+        title='Корзина'
+        isModal={isModal}
+        setIsModal={setIsModal}
+      />
+      <CartLayout>
+        <List
+          list={cart.items}
+          onAction={callbacks.onRemoveItem}
+        />
+        <CartSumm totalPrice={cart.totalPrice} />
+      </CartLayout>
+    </ModalLayout>}
+  </>);
 };
 
 export default App;

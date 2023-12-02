@@ -71,8 +71,9 @@ class Store {
    * Добавление товара в корзину
    * @param item {Object}
    */
-  addItemToCart(item) {
-    const cartItem = this.state.cart.items.find(i => i.code === item.code);
+  addItemToCart(code) {
+    const itemToAdd = this.state.list.find(i => i.code === code);
+    const cartItem = this.state.cart.items.find(i => i.code === code);
 
     // Добавление в корзину товаров только с уникальным идентификатором
     // и учет количества товара с идентичным идентификатором
@@ -82,7 +83,7 @@ class Store {
         cart: {
           ...this.state.cart,
           items: this.state.cart.items.map(i => {
-            if (i.code === item.code) {
+            if (i.code === code) {
               return {
                 ...i,
                 count: i.count + 1
@@ -98,9 +99,9 @@ class Store {
         cart: {
           ...this.state.cart,
           items: [...this.state.cart.items, {
-            code: item.code,
-            title: item.title,
-            price: item.price,
+            code: itemToAdd.code,
+            title: itemToAdd.title,
+            price: itemToAdd.price,
             count: 1
           }]
         }

@@ -27,6 +27,9 @@
   justify-content: flex-end;
   white-space: nowrap;
   padding: 20px 20px;
+
+  font-size: 18px;
+  color: #404040;
 }
 
 .Item__count {
@@ -37,4 +40,8 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item__actions button {
+  width: 75px;
 }

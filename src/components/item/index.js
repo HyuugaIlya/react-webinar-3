@@ -14,7 +14,7 @@ function Item({ item, onAction }) {
       onAction(item.code);
       // }
     } else {
-      onAction(item);
+      onAction(item.code);
     }
   }, [item]);
 

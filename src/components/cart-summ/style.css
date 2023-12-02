@@ -1,0 +1,15 @@
+.CartSumm {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px 0 20px;
+
+  font-size: 18px;
+}
+
+.CartSumm b:last-child {
+  margin-left: 55px;
+}
+
+.CartSumm b:first-child {
+  margin-left: 60%;
+}
