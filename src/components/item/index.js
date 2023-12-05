@@ -1,12 +1,15 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
+import { formatter } from "../../utils";
 
 import './style.css';
 
 function Item({ item, onAction }) {
 
   const cn = bem('Item');
+
+  const price = formatter.format(item.price);
 
   const actionFunc = useCallback(() => {
     if (item.count) {
@@ -25,7 +28,7 @@ function Item({ item, onAction }) {
         {item.title}
       </div>
       <div className={cn() + '__price'}>
-        {item.price} &#8381;
+        {price} &#8381;
       </div>
       {item.count && <div className={cn() + '__count'}>
         {item.count} шт.
