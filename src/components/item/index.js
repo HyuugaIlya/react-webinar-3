@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import { formatter } from "../../utils";
+import { numberFormat } from "../../utils";
 
 import './style.css';
 
@@ -9,7 +9,7 @@ function Item({ item, onAction }) {
 
   const cn = bem('Item');
 
-  const price = formatter.format(item.price);
+  const price = numberFormat(item.price);
 
   const actionFunc = useCallback(() => {
     if (item.count) {

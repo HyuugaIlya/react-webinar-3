@@ -55,4 +55,8 @@ export function generateCode2() {
  * Форматтер чисел в соответствии с языковыми параметрами
  * @returns {Number}
  */
-export const formatter = new Intl.NumberFormat("ru");
+export function numberFormat(value, locale = 'ru-Ru', options = {}) {
+  const formatter = new Intl.NumberFormat(locale, options);
+
+  return formatter.format(value);
+}
