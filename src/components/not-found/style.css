@@ -1,0 +1,27 @@
+.NotFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 30%;
+}
+
+.NotFound span {
+  width: 200px;
+  height: 1px;
+  background-color: black;
+  border: 1px solid;
+  border-radius: 4px;
+  
+  margin: 20px 0;
+}
+
+.NotFound__text_b {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.NotFound__text {
+  font-size: 28px;
+  font-weight: 400;
+}

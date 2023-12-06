@@ -1,6 +1,11 @@
-import {memo, useEffect, useRef} from "react";
+import {
+  memo,
+  useEffect,
+  useRef
+} from "react";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
+import { cn as bem } from '@bem-react/classname';
+
 import './style.css';
 
 function ModalLayout(props) {
@@ -50,7 +55,7 @@ ModalLayout.propTypes = {
 
 ModalLayout.defaultProps = {
   title: 'Модалка',
-  onClose: () => {}
+  onClose: () => { }
 };
 
 export default memo(ModalLayout);

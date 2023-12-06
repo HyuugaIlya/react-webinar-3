@@ -1,0 +1,29 @@
+.Article {
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Article__description,
+.Article__country,
+.Article__category,
+.Article__edition,
+.Article__edition {
+    font-size: 18px;
+}
+
+.Article__price {
+    font-size: 24px;
+}
+
+.Article__description,
+.Article__country,
+.Article__category,
+.Article__edition,
+.Article__price {
+    padding-bottom: 25px;
+}
+
+.Article__button {
+    width: 75px;
+}

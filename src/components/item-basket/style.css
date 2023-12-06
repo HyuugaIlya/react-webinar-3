@@ -15,6 +15,15 @@
   padding: 20px 10px;
 }
 
+.ItemBasket-title a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.ItemBasket-title a:hover {
+  text-decoration: underline;
+}
+
 .ItemBasket-right {
   padding: 20px 20px 20px 10px;
   display: flex;
@@ -27,4 +36,9 @@
   text-align: right;
   font-size: 18px;
   white-space: nowrap;
+}
+
+.ItemBasket-cell:nth-child(1),
+.ItemBasket-cell:nth-child(2) {
+  color: #404040;
 }
