@@ -6,9 +6,22 @@ import { numberFormat } from './../../utils';
 
 import './style.css';
 
-function Article({ article, onAdd }) {
+function Article({
+    article,
+    onAdd,
+    langArticle,
+    lang
+}) {
 
     const cn = bem('Article');
+
+    const {
+        country,
+        category,
+        edition,
+        price,
+        buttonAdd
+    } = langArticle;
 
     const callbacks = {
         onAdd: () => onAdd(article._id)
@@ -20,22 +33,25 @@ function Article({ article, onAdd }) {
                 {article.description}
             </span>
             <span className={cn() + '__country'}>
-                Страна производитель: <b>{article.madeIn?.title}</b>
+                {country}: <b>{article.madeIn?.title}</b>
             </span>
             <span className={cn() + '__category'}>
-                Категория: <b>{article.category?.title}</b>
+                {category}: <b>{article.category?.title}</b>
             </span>
             <span className={cn() + '__edition'}>
-                Год выпуска: <b>{article.edition}</b>
+                {edition}: <b>{article.edition}</b>
             </span>
             <span className={cn() + '__price'}>
-                <b>Цена: {numberFormat(article.price)} ₽</b>
+                <b>
+                    {price}: {numberFormat(article.price, lang === 'ru'
+                        ? 'ru-RU' : 'en-EN')} {lang === 'ru' ? '₽' : '$'}
+                </b>
             </span>
             <button
                 className={cn() + '__button'}
                 onClick={callbacks.onAdd}
             >
-                Добавить
+                {buttonAdd}
             </button>
         </div>
     );
@@ -60,6 +76,14 @@ Article.propTypes = {
         price: PropTypes.number
     }).isRequired,
     onAdd: PropTypes.func,
+    langArticle: PropTypes.shape({
+        country: PropTypes.string,
+        category: PropTypes.string,
+        edition: PropTypes.string,
+        price: PropTypes.string,
+        buttonAdd: PropTypes.string
+    }),
+    lang: PropTypes.string
 };
 
 Article.defaultProps = {

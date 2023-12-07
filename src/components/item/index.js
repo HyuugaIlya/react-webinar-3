@@ -23,8 +23,11 @@ function Item(props) {
         </Link>
       </div>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <div className={cn('price')}>
+          {numberFormat(props.item.price, props.lang === 'ru'
+            ? 'ru-RU' : 'en-EN')} {props.lang === 'ru' ? '₽' : '$'}
+        </div>
+        <button onClick={callbacks.onAdd}>{props.buttonAdd}</button>
       </div>
     </div>
   );
@@ -37,6 +40,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  buttonAdd: PropTypes.string,
 };
 
 Item.defaultProps = {

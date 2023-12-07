@@ -24,6 +24,10 @@
   margin: 0 20px;
 }
 
+.BasketTool button {
+  width: 75px;
+}
+
 .BasketTool button:disabled{
   cursor: not-allowed;
 }

@@ -5,21 +5,29 @@ import { numberFormat } from "../../utils";
 
 import './style.css';
 
-function BasketTotal({ sum }) {
+function BasketTotal({
+  sum,
+  lang,
+  total
+}) {
 
   const cn = bem('BasketTotal');
 
   return (
     <div className={cn()}>
-      <span className={cn('cell')}>Итого</span>
-      <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
+      <span className={cn('cell')}>{total}:</span>
+      <span className={cn('cell')}>
+        {numberFormat(sum, lang === 'ru' ? 'ru-RU' : 'en-EN')} {lang === 'ru' ? '₽' : '$'}
+      </span>
       <span className={cn('cell')}></span>
     </div>
   );
 }
 
 BasketTotal.propTypes = {
-  sum: PropTypes.number
+  sum: PropTypes.number,
+  lang: PropTypes.string,
+  total: PropTypes.string
 };
 
 BasketTotal.defaultProps = {

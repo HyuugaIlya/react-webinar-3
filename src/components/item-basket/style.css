@@ -42,6 +42,10 @@
   white-space: nowrap;
 }
 
+.ItemBasket-cell button {
+  width: 75px;
+}
+
 .ItemBasket-cell:nth-child(1),
 .ItemBasket-cell:nth-child(2) {
   color: #404040;

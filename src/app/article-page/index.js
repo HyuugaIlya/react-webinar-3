@@ -5,13 +5,15 @@ import React, {
 import PropTypes from "prop-types";
 import { useParams } from 'react-router-dom';
 import Article from '../../components/article';
-import Preloader from '../../components/preloader';
+import Preloader from '../../components/common/preloader';
 
 function ArticlePage({
     article,
     setArticle,
     onAdd,
-    isFetching
+    isFetching,
+    langArticle,
+    lang
 }) {
 
     const { id } = useParams();
@@ -25,6 +27,8 @@ function ArticlePage({
     }
 
     return <Article
+        lang={lang}
+        langArticle={langArticle}
         article={article}
         onAdd={onAdd}
     />
@@ -45,10 +49,18 @@ ArticlePage.propTypes = {
         }),
         edition: PropTypes.number,
         description: PropTypes.string,
-        price: PropTypes.number
+        price: PropTypes.number,
     }).isRequired,
     setArticle: PropTypes.func,
     onAdd: PropTypes.func,
+    langArticle: PropTypes.shape({
+        country: PropTypes.string,
+        category: PropTypes.string,
+        edition: PropTypes.string,
+        price: PropTypes.string,
+        buttonAdd: PropTypes.string
+    }),
+    lang: PropTypes.string
 };
 
 ArticlePage.defaultProps = {

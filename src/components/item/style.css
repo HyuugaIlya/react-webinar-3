@@ -35,6 +35,10 @@
   gap: 20px
 }
 
+.Item-actions button {
+  width: 75px;
+}
+
 .Item-price {
   color: #404040;
   padding: 0 0 0 10px;

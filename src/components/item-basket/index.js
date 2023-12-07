@@ -1,6 +1,9 @@
 import { memo } from 'react';
 import propTypes from 'prop-types';
-import { numberFormat } from "../../utils";
+import {
+  numberFormat,
+  plural
+} from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
@@ -28,10 +31,18 @@ function ItemBasket(props) {
         </Link>
       </div>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          {numberFormat(props.item.price,
+            props.lang === 'ru' ? 'ru-RU' : 'en-EN')} {props.lang === 'ru' ? '₽' : '$'}
+        </div>
+        <div className={cn('cell')}>
+          {numberFormat(props.item.amount || 0,
+            props.lang === 'ru' ? 'ru-RU' : 'en-EN')} {props.lang === 'ru'
+              ? 'шт.'
+              : plural(props.item.amount, { one: 'piece', other: 'pcs' }, 'en-EN')}
+        </div>
+        <div className={cn('cell')}>
+          <button onClick={callbacks.onRemove}>{props.buttonRemove}</button>
         </div>
       </div>
     </div>
@@ -45,10 +56,14 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
+  onClose: propTypes.func,
   onRemove: propTypes.func,
+  lang: PropTypes.string,
+  buttonRemove: PropTypes.string,
 }
 
 ItemBasket.defaultProps = {
+  onClose: () => { },
   onRemove: () => { },
 }
 
