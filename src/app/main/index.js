@@ -72,7 +72,7 @@ function Main() {
   return (
     <PageLayout>
       <Head
-        title={location.pathname === '/main'
+        title={location.pathname.includes('/main')
           ? 'Магазин'
           : select.article.title}
       />

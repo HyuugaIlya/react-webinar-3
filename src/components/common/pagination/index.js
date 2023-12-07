@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 
@@ -12,9 +12,9 @@ function Pagination({ pagination, onLoad }) {
   const currentPage = pagination.currentPage;
   const currentSkip = (p) => {
     if (p === 0) {
-      return p
+      return p;
     } else {
-      return 10 * p
+      return p * 10;
     }
   };
 
@@ -23,14 +23,15 @@ function Pagination({ pagination, onLoad }) {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
   };
+  const end = pages.length - 1;
 
   const callbacks = {
     onLoad: (limit, skip, currentPage) => onLoad(limit, skip, currentPage),
     onFilter: (p) => {
       if (currentPage === pages[0] || currentPage === pages[1]) {
         return p >= 2 && p <= 3;
-      } else if (currentPage === pages[pages.length - 1] || currentPage === pages[pages.length - 2]) {
-        return p >= pages[pages.length - 3] && p <= pages[pages.length - 1];
+      } else if (currentPage === pages[end] || currentPage === pages[end - 1]) {
+        return p >= pages[end - 2] && p <= pages[end - 1];
       }
       return p >= currentPage - 1 && p <= currentPage + 1;
     }
@@ -39,7 +40,9 @@ function Pagination({ pagination, onLoad }) {
   return (
     <div className={cn()}>
       <span
-        className={cn() + '__page-count' + (currentPage === pages[0] ? '_selected' : '')}
+        className={cn() + (currentPage === pages[0]
+          ? '__page-count_selected'
+          : '__page-count')}
         onClick={() => callbacks.onLoad(currentLimit, 0, 1)}
       >
         {pages[0]}
@@ -48,22 +51,26 @@ function Pagination({ pagination, onLoad }) {
       {pages
         .filter(p => callbacks.onFilter(p))
         .map((p) => {
-          if (p !== pages[0] && p !== pages[pages.length - 1]) {
+          if (p !== pages[0] && p !== pages[end]) {
             return <span
-              key={pages.indexOf(p)}
-              className={cn() + '__page-count' + (currentPage === p ? '_selected' : '')}
+              key={p}
+              className={cn() + (currentPage === p
+                ? '__page-count_selected'
+                : '__page-count')}
               onClick={() => callbacks.onLoad(currentLimit, currentSkip(pages.indexOf(p)), p)}
             >
               {p}
             </span>
           }
         })}
-      {currentPage < pagesCount - 2 && <span className={cn() + '__ellipsis'}>...</span>}
+      {currentPage < (pagesCount - 2) && <span className={cn() + '__ellipsis'}>...</span>}
       <span
-        className={cn() + '__page-count' + (currentPage === pages[pages.length - 1] ? '_selected' : '')}
-        onClick={() => callbacks.onLoad(currentLimit, currentSkip(pages.indexOf(pages[pages.length - 1])), pages[pages.length - 1])}
+        className={cn() + (currentPage === pages[end]
+          ? '__page-count_selected'
+          : '__page-count')}
+        onClick={() => callbacks.onLoad(currentLimit, currentSkip(pages.indexOf(pages[end])), pages[end])}
       >
-        {pages[pages.length - 1]}
+        {pages[end]}
       </span>
     </div>
   );

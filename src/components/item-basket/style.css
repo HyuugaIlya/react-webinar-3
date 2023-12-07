@@ -24,6 +24,10 @@
   text-decoration: underline;
 }
 
+.ItemBasket-title a:active{
+  color: #404040;
+}
+
 .ItemBasket-right {
   padding: 20px 20px 20px 10px;
   display: flex;

@@ -4,13 +4,19 @@
   justify-content: flex-end;
 }
 
-.Pagination__page-count {
+.Pagination__page-count,
+.Pagination__page-count_selected {
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 20px;
   padding: 0px 5px;
+}
+
+.Pagination__page-count_selected {
+  background-color: #0087E9;
+  color: #FFFFFF;
 }
 
 .Pagination__ellipsis {
@@ -21,15 +27,4 @@
 
 .Pagination__page-count:hover {
   background-color: #E1E1E1;
-}
-
-.Pagination__page-count_selected {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20px;
-  padding: 0px 5px;
-  background-color: #0087E9;
-  color: #FFFFFF;
 }
