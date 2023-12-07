@@ -7,8 +7,7 @@ import {
   Routes,
   Route,
   Navigate,
-  useLocation,
-  Link
+  useLocation
 } from 'react-router-dom';
 
 import Item from "../../components/item";
