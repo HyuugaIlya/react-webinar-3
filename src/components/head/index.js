@@ -20,8 +20,12 @@ function Head({
 }
 
 Head.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node
+};
+
+Head.defaultProps = {
+  title: 'Магазин'
 };
 
 export default memo(Head);

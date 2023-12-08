@@ -9,6 +9,9 @@ import {
   Navigate,
   useLocation
 } from 'react-router-dom';
+import useStore from "../../store/use-store";
+import useSelector from "../../store/use-selector";
+import useLanguage from '../../store/use-language';
 
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
@@ -18,11 +21,8 @@ import List from "../../components/list";
 import Pagination from '../../components/common/pagination';
 import ArticlePage from '../article-page';
 
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
 import NotFound from '../../components/not-found';
 import Preloader from '../../components/common/preloader';
-import useLanguage from '../../store/use-language';
 
 function Main() {
 
