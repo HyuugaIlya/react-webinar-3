@@ -9,6 +9,7 @@ import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import useLanguage from '../../store/use-language';
 
 function Basket() {
 
@@ -31,18 +32,12 @@ function Basket() {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
 
-    //Сравнение языка для отрисовки
-    langComp: useCallback((item) => store.actions.lang.langComp(item), [store]),
     //Смена языка
     onLang: useCallback((lang) => store.actions.lang.setLanguage(lang), [store])
   }
 
-  const langItems = {
-    cartHead: callbacks.langComp(select.langObj.cartHead),
-    buttonRemove: callbacks.langComp(select.langObj.buttonRemove),
-    buttonClose: callbacks.langComp(select.langObj.buttonClose),
-    total: callbacks.langComp(select.langObj.total)
-  }
+  //Получение данных для отрисовки в зависимости от выбранного языка
+  const langItems = useLanguage(select.langObj.cart);
 
   const renders = {
     itemBasket: useCallback((item) => {

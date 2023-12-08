@@ -10,66 +10,77 @@ class Lang extends StoreModule {
     return {
       langObj: {
 
-        //Main
-        title: {
-          ru: 'Магазин',
-          en: 'Shop'
-        },
-        cartEmpty: {
-          ru: 'пусто',
-          en: 'empty'
-        },
-        buttonGo: {
-          ru: 'Перейти',
-          en: 'Go'
-        },
-        cartTitle: {
-          ru: 'В корзине',
-          en: 'In the cart'
-        },
-        linkHome: {
-          ru: 'Главная',
-          en: 'Home'
-        },
-        buttonAdd: {
-          ru: 'Добавить',
-          en: 'Add'
-        },
-
-        //Cart
-        cartHead: {
-          ru: 'Корзина',
-          en: 'Cart'
-        },
-        buttonRemove: {
-          ru: 'Удалить',
-          en: 'Remove'
-        },
-        buttonClose: {
-          ru: 'Закрыть',
-          en: 'Close'
-        },
-        total: {
-          ru: 'Итого',
-          en: 'Total'
+        //MainPage
+        main: {
+          title: {
+            ru: 'Магазин',
+            en: 'Shop'
+          },
+          cartEmpty: {
+            ru: 'пусто',
+            en: 'empty'
+          },
+          buttonGo: {
+            ru: 'Перейти',
+            en: 'Go'
+          },
+          cartTitle: {
+            ru: 'В корзине',
+            en: 'In the cart'
+          },
+          linkHome: {
+            ru: 'Главная',
+            en: 'Home'
+          },
+          buttonAdd: {
+            ru: 'Добавить',
+            en: 'Add'
+          },
         },
 
-        //Article
-        country: {
-          ru: 'Страна производитель',
-          en: 'Country'
+
+        //CartModal
+        cart: {
+          cartHead: {
+            ru: 'Корзина',
+            en: 'Cart'
+          },
+          buttonRemove: {
+            ru: 'Удалить',
+            en: 'Remove'
+          },
+          buttonClose: {
+            ru: 'Закрыть',
+            en: 'Close'
+          },
+          total: {
+            ru: 'Итого',
+            en: 'Total'
+          },
         },
-        category: {
-          ru: 'Категория',
-          en: 'Category'
-        },
-        edition: {
-          ru: 'Год выпуска',
-          en: 'Edition'
-        },
-        price: {
-          ru: 'Цена',
-          en: 'Price'
+
+        //ArticlePage
+        article: {
+          country: {
+            ru: 'Страна производитель',
+            en: 'Country'
+          },
+          category: {
+            ru: 'Категория',
+            en: 'Category'
+          },
+          edition: {
+            ru: 'Год выпуска',
+            en: 'Edition'
+          },
+          price: {
+            ru: 'Цена',
+            en: 'Price'
+          },
+          buttonAdd: {
+            ru: 'Добавить',
+            en: 'Add'
+          },
         }
       },
       language: 'ru'
@@ -81,12 +92,6 @@ class Lang extends StoreModule {
       ...this.getState(),
       language: lang
     })
-  }
-
-  langComp(item) {
-    return this.getState().language === 'ru'
-      ? item.ru
-      : item.en
   }
 };
 

@@ -22,6 +22,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import NotFound from '../../components/not-found';
 import Preloader from '../../components/common/preloader';
+import useLanguage from '../../store/use-language';
 
 function Main() {
 
@@ -66,28 +67,13 @@ function Main() {
     //Подгрузка новых данных страницы каталога
     onLoad: useCallback((limit, skip, currentPage) => store.actions.catalog.load(limit, skip, currentPage), [store]),
 
-    //Сравнение языка для отрисовки
-    langComp: useCallback((item) => store.actions.lang.langComp(item), [store]),
     //Смена языка
     onLang: useCallback((lang) => store.actions.lang.setLanguage(lang), [store])
   }
 
-  const langMain = {
-    title: callbacks.langComp(select.langObj.title),
-    linkHome: callbacks.langComp(select.langObj.linkHome),
-    cartTitle: callbacks.langComp(select.langObj.cartTitle),
-    cartEmpty: callbacks.langComp(select.langObj.cartEmpty),
-    buttonGo: callbacks.langComp(select.langObj.buttonGo),
-    buttonAdd: callbacks.langComp(select.langObj.buttonAdd),
-  }
-
-  const langArticle = {
-    country: callbacks.langComp(select.langObj.country),
-    category: callbacks.langComp(select.langObj.category),
-    edition: callbacks.langComp(select.langObj.edition),
-    price: callbacks.langComp(select.langObj.price),
-    buttonAdd: callbacks.langComp(select.langObj.buttonAdd)
-  }
+  //Получение данных для отрисовки в зависимости от выбранного языка
+  const langMain = useLanguage(select.langObj.main);
+  const langArticle = useLanguage(select.langObj.article);
 
   const renders = {
     item: useCallback((item) => {
