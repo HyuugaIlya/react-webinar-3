@@ -13,7 +13,6 @@ import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
 import Header from './header';
-// import ArticlePage from './article-page';
 
 import NotFound from './../components/not-found/index';
 import PageLayout from '../components/page-layout';
