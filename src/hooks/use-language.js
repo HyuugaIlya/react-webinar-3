@@ -1,20 +1,23 @@
+import { langLib } from "../libs/lang-lib";
 import useSelector from "./use-selector";
 
 /**
  * Хук для выборки данных из store при изменении языка
- * @param obj {Object}
+ * @param str {String}
  * @return {*}
  */
-export default function useLanguage(obj) {
+export default function useLanguage(str) {
+
+  const langObj = langLib;
 
   const language = useSelector(state => state.lang.language);
 
   const langItems = {};
 
-  for (let key of Object.keys(obj)) {
+  for (let key of Object.keys(langObj[str])) {
     langItems[key] = language === 'ru'
-      ? obj[key].ru
-      : obj[key].en
+      ? langObj[str][key].ru
+      : langObj[str][key].en
   };
 
   return langItems;

@@ -3,13 +3,15 @@ import {
   useCallback,
   useEffect
 } from 'react';
+
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
+import useLanguage from '../../hooks/use-language';
+
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
-import useLanguage from '../../store/use-language';
 
 function Basket() {
 
@@ -22,7 +24,6 @@ function Basket() {
     sum: state.basket.sum,
 
     //Lang Data
-    langObj: state.lang.langObj,
     language: state.lang.language
   }));
 
@@ -31,20 +32,22 @@ function Basket() {
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
-
-    //Смена языка
-    onLang: useCallback((lang) => store.actions.lang.setLanguage(lang), [store])
   }
 
   //Получение данных для отрисовки в зависимости от выбранного языка
-  const langItems = useLanguage(select.langObj.cart);
+  const {
+    buttonRemove,
+    cartHead,
+    buttonClose,
+    total,
+  } = useLanguage('cart');
 
   const renders = {
     itemBasket: useCallback((item) => {
       return <ItemBasket
         item={item}
         lang={select.language}
-        buttonRemove={langItems.buttonRemove}
+        buttonRemove={buttonRemove}
         onRemove={callbacks.removeFromBasket}
         onClose={callbacks.closeModal}
       />
@@ -59,8 +62,8 @@ function Basket() {
 
   return (
     <ModalLayout
-      title={langItems.cartHead}
-      buttonClose={langItems.buttonClose}
+      title={cartHead}
+      buttonClose={buttonClose}
       onClose={callbacks.closeModal}
     >
       <List
@@ -70,7 +73,7 @@ function Basket() {
       <BasketTotal
         sum={select.sum}
         lang={select.language}
-        total={langItems.total}
+        total={total}
       />
     </ModalLayout>
   );

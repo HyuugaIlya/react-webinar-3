@@ -1,71 +1,53 @@
 import React, {
     memo,
+    useCallback,
     useEffect
 } from 'react';
-import PropTypes from "prop-types";
 import { useParams } from 'react-router-dom';
-import Article from '../../components/article';
-import Preloader from '../../components/common/preloader';
 
-function ArticlePage({
-    article,
-    setArticle,
-    onAdd,
-    isFetching,
-    langArticle,
-    lang
-}) {
+import useSelector from "../../hooks/use-selector";
+import useLanguage from '../../hooks/use-language';
+import useStore from '../../hooks/use-store';
+
+import Article from '../../components/article';
+
+function ArticlePage() {
+
+    const store = useStore();
+
+    const select = useSelector(state => ({
+        //Article Data
+        article: state.article.item,
+        isArticleFetching: state.article.isFetching,
+
+        //Lang Data
+        language: state.lang.language
+    }));
+
+    const callbacks = {
+        // Добавление в корзину
+        addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+
+        // Добавление товара на страницу товара
+        setArticle: useCallback((id) => store.actions.article.setArticle(id), [store]),
+    }
 
     const { id } = useParams();
 
     useEffect(() => {
-        setArticle(id);
+        callbacks.setArticle(id);
     }, [id]);
 
-    if (isFetching) {
-        return <Preloader />
-    }
+    //Получение данных для отрисовки в зависимости от выбранного языка
+    const langArticle = useLanguage('article');
 
     return <Article
-        lang={lang}
+        isFetching={select.isArticleFetching}
+        lang={select.language}
         langArticle={langArticle}
-        article={article}
-        onAdd={onAdd}
-    />
+        article={select.article}
+        onAdd={callbacks.addToBasket}
+    />;
 };
-
-ArticlePage.propTypes = {
-    article: PropTypes.shape({
-        _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        title: PropTypes.string,
-        country: PropTypes.shape({
-            _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-            code: PropTypes.string,
-            title: PropTypes.string
-        }),
-        category: PropTypes.shape({
-            _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-            title: PropTypes.string
-        }),
-        edition: PropTypes.number,
-        description: PropTypes.string,
-        price: PropTypes.number,
-    }).isRequired,
-    setArticle: PropTypes.func,
-    onAdd: PropTypes.func,
-    langArticle: PropTypes.shape({
-        country: PropTypes.string,
-        category: PropTypes.string,
-        edition: PropTypes.string,
-        price: PropTypes.string,
-        buttonAdd: PropTypes.string
-    }),
-    lang: PropTypes.string
-};
-
-ArticlePage.defaultProps = {
-    setArticle: (id) => { },
-    onAdd: (id) => { },
-}
 
 export default memo(ArticlePage);

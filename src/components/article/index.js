@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 
 import { numberFormat } from './../../utils';
+import Preloader from '../common/preloader';
 
 import './style.css';
 
@@ -10,7 +11,8 @@ function Article({
     article,
     onAdd,
     langArticle,
-    lang
+    lang,
+    isFetching
 }) {
 
     const cn = bem('Article');
@@ -25,6 +27,10 @@ function Article({
 
     const callbacks = {
         onAdd: () => onAdd(article._id)
+    };
+
+    if (isFetching) {
+        return <Preloader />
     };
 
     return (
@@ -83,7 +89,8 @@ Article.propTypes = {
         price: PropTypes.string,
         buttonAdd: PropTypes.string
     }),
-    lang: PropTypes.string
+    lang: PropTypes.string,
+    isFetching: PropTypes.bool
 };
 
 Article.defaultProps = {
