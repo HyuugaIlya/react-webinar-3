@@ -25,7 +25,7 @@ Head.propTypes = {
 };
 
 Head.defaultProps = {
-  title: 'Магазин'
+  title: ''
 };
 
 export default memo(Head);
