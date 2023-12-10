@@ -17,6 +17,7 @@ import Header from './header';
 import NotFound from './../components/not-found/index';
 import PageLayout from '../components/page-layout';
 import Preloader from '../components/common/preloader';
+import Navigation from './navigation';
 
 const ArticlePage = lazy(() => import( /* webpackChunkName: "ArticlePage" */ './article-page'));
 
@@ -33,6 +34,7 @@ function App() {
 
     <PageLayout>
       <Header />
+      <Navigation />
       <Routes>
         <Route path='/' element={<Navigate to={`/main`} />} />
 

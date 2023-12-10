@@ -1,0 +1,15 @@
+.NavLinks a {
+  color: #0087E9;
+}
+
+.NavLinks a:hover {
+  color: rgba(0, 117, 201, 1);
+}
+
+.NavLinks a:active {
+  color: rgb(0, 141, 241);
+}
+
+.NavLinks-link {
+  font-size: 18px;
+}

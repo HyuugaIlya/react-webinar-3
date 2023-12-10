@@ -1,18 +1,14 @@
 export const langLib = {
-    //MainPage
-    'main': {
+    //Header
+    'header': {
         title: {
             ru: 'Магазин',
             en: 'Shop'
-        },
-        cartEmpty: {
-            ru: 'пусто',
-            en: 'empty'
-        },
-        buttonGo: {
-            ru: 'Перейти',
-            en: 'Go'
-        },
+        }
+    },
+
+    //Nav
+    'nav': {
         cartTitle: {
             ru: 'В корзине',
             en: 'In the cart'
@@ -21,10 +17,22 @@ export const langLib = {
             ru: 'Главная',
             en: 'Home'
         },
+        cartEmpty: {
+            ru: 'пусто',
+            en: 'empty'
+        },
+        buttonGo: {
+            ru: 'Перейти',
+            en: 'Go'
+        }
+    },
+
+    //MainPage
+    'main': {
         buttonAdd: {
             ru: 'Добавить',
             en: 'Add'
-        },
+        }
     },
 
     //CartModal
