@@ -22,3 +22,15 @@
   margin-right: 0;
   padding-right: 0;
 }
+
+.Menu-item a {
+  color: #0087E9;
+}
+
+.Menu-item a:hover {
+  color: rgba(0, 117, 201, 1);
+}
+
+.Menu-item a:active {
+  color: rgb(0, 141, 241);
+}
