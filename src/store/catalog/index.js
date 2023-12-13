@@ -54,6 +54,10 @@ class CatalogState extends StoreModule {
     await this.setParams(params);
   }
 
+  /**
+   * Установка категорий товаров
+   * @return {Promise<void>}
+   */
   async setCategories() {
     // Установка признака загрузки
     this.setState({
@@ -63,6 +67,7 @@ class CatalogState extends StoreModule {
 
     const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
     const json = await response.json();
+
     const items = json.result.items;
 
     // Сортировка категорий товаров в соответствии с родительскими id
@@ -130,13 +135,13 @@ class CatalogState extends StoreModule {
 
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();
-    let urlSearchSTR = new URLSearchParams(params);
-    console.log(urlSearchSTR.entries());
-    const url = window.location.pathname + '?' + urlSearch + window.location.hash;
-    if (replaceHistory) {
-      window.history.replaceState({}, '', url);
-    } else {
-      window.history.pushState({}, '', url);
+    if (window.location.pathname.includes('/main')) {
+      const url = window.location.pathname + '?' + urlSearch + window.location.hash;
+      if (replaceHistory) {
+        window.history.replaceState({}, '', url);
+      } else {
+        window.history.pushState({}, '', url);
+      }
     }
 
     let apiParams = {};

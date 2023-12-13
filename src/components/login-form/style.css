@@ -1,0 +1,36 @@
+.Form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Form h1 {
+    font-size: 24px;
+}
+
+.Form-input {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+.Form-input span {
+    font-size: 16px;
+}
+
+.Form-input input {
+    height: 20px;
+    width: 200px;
+    border: none;
+    outline: none;
+    border: 1px solid #767676;
+    padding: 3px;
+}
+
+.Errors {
+    padding-bottom: 20px;
+}
+
+.Errors span {
+    color: red;
+}

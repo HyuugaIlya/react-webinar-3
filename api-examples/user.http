@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ###
-# Выход - отмена авториазции для удаления токена
+# Выход - отмена авторизации для удаления токена
 
 DELETE http://example.front.ylab.io/api/v1/users/sign
 X-Token: 56677139a343b4c4c8087a3da579e9fabdbccc6231941654b094a4c011a4a582

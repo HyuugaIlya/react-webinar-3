@@ -1,0 +1,19 @@
+.Profile {
+  padding: 10px 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.Profile h1 {
+  font-size: 24px;
+}
+
+.Profile span {
+  font-size: 18px;
+}
+
+.Profile h1,
+.Profile span {
+  padding-bottom: 20px;
+}
