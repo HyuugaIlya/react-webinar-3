@@ -2,7 +2,7 @@ import { memo } from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Select(props) {
+function SelectSort(props) {
 
   const onSelect = (e) => {
     props.onChange(e.target.value);
@@ -16,8 +16,8 @@ function Select(props) {
     >
       {props.options.map(item => (
         <option
-          key={item.value || item._id}
-          value={item.value || item._id}
+          key={item.value}
+          value={item.value}
         >
           {item.title}
         </option>
@@ -26,18 +26,19 @@ function Select(props) {
   )
 }
 
-Select.propTypes = {
+SelectSort.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string
   })).isRequired,
   value: PropTypes.any,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  children: PropTypes.node
 };
 
-Select.defaultProps = {
+SelectSort.defaultProps = {
   onChange: () => {
   }
 }
 
-export default memo(Select);
+export default memo(SelectSort);
