@@ -1,0 +1,18 @@
+.Form-input {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+.Form-input span {
+    font-size: 16px;
+}
+
+.Form-input input {
+    height: 26px;
+    width: 203px;
+    border: none;
+    outline: none;
+    border: 1px solid #767676;
+    font-size: 16px;
+}

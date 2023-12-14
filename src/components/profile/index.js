@@ -13,7 +13,13 @@ function Profile({ user }) {
 }
 
 Profile.propTypes = {
-
+  user: PropTypes.shape({
+    email: PropTypes.string,
+    profile: PropTypes.shape({
+      name: PropTypes.string,
+      phone: PropTypes.string,
+    })
+  })
 }
 
 Profile.defaultProps = {

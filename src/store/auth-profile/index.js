@@ -7,7 +7,8 @@ class AuthProfileState extends StoreModule {
 
   initState() {
     return {
-      data: {},
+      user: {},
+      token: '',
       error: '',
       isAuth: false,
       isFetching: false
@@ -16,6 +17,8 @@ class AuthProfileState extends StoreModule {
 
   async login(secrets) {
     this.setState({
+      ...this.getState(),
+      isAuth: false,
       isFetching: true
     });
 
@@ -36,7 +39,8 @@ class AuthProfileState extends StoreModule {
     if (response.ok) {
       this.setState({
         ...this.getState(),
-        data: json.result,
+        user: json.result.user,
+        token: json.result.token,
         isAuth: true,
         isFetching: false
       })
@@ -50,53 +54,61 @@ class AuthProfileState extends StoreModule {
     }
   }
 
-  async getProfile() {
-    this.setState({
-      isFetching: true
-    });
-
-    const response = await fetch(`api/v1/users/self?fields=*`, {
-      headers: {
-        'X-Token': this.getState().data?.token,
-        'Content-Type': 'application/json'
-      }
-    });
-    const json = await response.json();
-
+  async getProfile(token) {
     this.setState({
       ...this.getState(),
-      data: {
-        ...this.getState().data,
-        user: json.result
-      },
-      isAuth: true,
-      isFetching: false
-    })
-
-    console.log(json.result);
-  }
-
-  async logout() {
-    this.setState({
+      isAuth: false,
       isFetching: true
     });
 
     try {
-      await fetch(`api/v1/users/sign`, {
+      const response = await fetch(`api/v1/users/self?fields=*`, {
+        headers: {
+          'X-Token': token,
+          'Content-Type': 'application/json'
+        }
+      });
+      const json = await response.json();
+
+      if (response.ok) {
+        this.setState({
+          ...this.getState(),
+          user: json.result,
+          token: token,
+          isAuth: true,
+          isFetching: false
+        })
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  async logout(token) {
+    this.setState({
+      ...this.getState(),
+      isAuth: false,
+      isFetching: true
+    });
+
+    try {
+      const response = await fetch(`api/v1/users/sign`, {
         method: "delete",
         headers: {
-          'X-Token': this.getState().data?.token,
+          'X-Token': token,
           'Content-Type': 'application/json'
         },
       });
 
-      this.setState({
-        ...this.getState(),
-        data: {},
-        isAuth: false,
-        isFetching: false
-      })
-
+      if (response.ok) {
+        this.setState({
+          ...this.getState(),
+          user: {},
+          token: '',
+          isAuth: false,
+          isFetching: false
+        })
+      }
     } catch (e) {
       console.log(e.message);
     }

@@ -97,7 +97,6 @@ class CatalogState extends StoreModule {
             } else {
               continue
             }
-
           } else {
             continue
           }

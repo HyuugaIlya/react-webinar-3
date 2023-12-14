@@ -9,6 +9,10 @@
   padding: 0 20px;
 }
 
+.Login-link span {
+  font-size: 13px;
+}
+
 .Login-link {
   padding: 0 20px;
   color: #0087E9;

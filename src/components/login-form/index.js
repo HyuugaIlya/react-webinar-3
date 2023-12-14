@@ -1,15 +1,24 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+import ErrorsForm from '../form-comps/errors-form';
+import InputForm from '../form-comps/input-form';
 
 import './style.css';
 
-function LoginForm({ onAuth, isAuth, errMessage }) {
+function LoginForm({
+    onAuth,
+    errMessage,
+    isFetching
+}) {
     const {
         register,
         handleSubmit,
-        formState: { errors, isValid },
+        formState: {
+            errors,
+            isValid
+        },
         clearErrors,
         setError,
         reset
@@ -17,17 +26,12 @@ function LoginForm({ onAuth, isAuth, errMessage }) {
         mode: 'all'
     });
 
-    const navigate = useNavigate();
-
     useEffect(() => {
-        if (isAuth) {
-            navigate('/profile');
-        }
         setError('server', {
             type: 'custom',
             message: errMessage
         })
-    }, [isAuth])
+    }, [errMessage])
 
     const onSubmit = (data) => {
         onAuth(data);
@@ -36,44 +40,39 @@ function LoginForm({ onAuth, isAuth, errMessage }) {
 
     const clearServerErrors = () => clearErrors(['server']);
 
-    return <form
-        className='Form'
-        onSubmit={handleSubmit(onSubmit)}
-    >
+    return <form className='Form' onSubmit={handleSubmit(onSubmit)}>
         <h1>Вход</h1>
-        <section className='Form-input'>
-            <span>Логин</span>
-            <input {...register('login',
-                {
-                    required: 'This field is required'
-                })}
-                onFocus={clearServerErrors}
-            />
-        </section>
-        <div>
-            {errors?.email && (
-                <span>{errors?.email.message || 'Error!'}</span>
-            )}
-        </div>
-        <section className='Form-input'>
-            <span>Пароль</span>
-            <input {...register('password',
-                {
-                    required: 'This field is required'
-                })}
-                onFocus={clearServerErrors}
-                type={'password'}
-            />
-        </section>
-        {errors.server?.message && <section className='Errors'>
-            <span>
-                {errors.server.message}
-            </span>
-        </section>}
+        <InputForm
+            isFetching={isFetching}
+            register={register}
+            clearServerErrors={clearServerErrors}
+            type={'text'}
+            registerName={'login'}
+            name={'Логин'}
+        />
+        <InputForm
+            isFetching={isFetching}
+            register={register}
+            clearServerErrors={clearServerErrors}
+            type={'password'}
+            registerName={'password'}
+            name={'Пароль'}
+        />
+        {errors.server?.message && <ErrorsForm message={errors.server.message} />}
         <div >
             <button disabled={!isValid}>Войти</button>
         </div>
     </form>
+}
+
+LoginForm.propTypes = {
+    onAuth: PropTypes.func,
+    isFetching: PropTypes.bool,
+    errMessage: PropTypes.string
+}
+
+LoginForm.defaultProps = {
+    onAuth: () => { },
 }
 
 export default LoginForm;

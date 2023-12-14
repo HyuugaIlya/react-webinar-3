@@ -12,7 +12,7 @@ import Article from "./article";
 import LoginPage from './login-page';
 import ProfilePage from './profile-page';
 
-import LoginContainer from '../containers/login-container';
+import LoginHeadContainer from '../containers/login-head-container';
 import Navigation from '../containers/navigation';
 import Header from '../containers/header';
 
@@ -30,7 +30,7 @@ function App() {
     {activeModal === 'basket' && <Basket />}
 
     <PageLayout>
-      <LoginContainer />
+      <LoginHeadContainer />
       <Header />
       <Navigation />
       <Routes>
