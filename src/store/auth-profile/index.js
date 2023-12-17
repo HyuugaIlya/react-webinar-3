@@ -18,6 +18,7 @@ class AuthProfileState extends StoreModule {
   async login(secrets) {
     this.setState({
       ...this.getState(),
+      error: '',
       isAuth: false,
       isFetching: true
     });

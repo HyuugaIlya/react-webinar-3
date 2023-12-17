@@ -60,7 +60,12 @@ function LoginForm({
         />
         {errors.server?.message && <ErrorsForm message={errors.server.message} />}
         <div >
-            <button disabled={!isValid}>Войти</button>
+            <button
+                disabled={!isValid}
+                onClick={clearServerErrors}
+            >
+                Войти
+            </button>
         </div>
     </form>
 }

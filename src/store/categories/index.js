@@ -46,7 +46,7 @@ class CategoriesState extends StoreModule {
           : findItem.title
       }];
 
-      const parentItems = items.filter(item => item.parent?._id === id) || [];
+      const parentItems = items.filter(item => item.parent?._id === id);
 
       if (parentItems.length) {
         parentItems.map(item => {
