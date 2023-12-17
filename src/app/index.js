@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
 import {
   Routes,
   Route,
   Navigate
 } from 'react-router-dom';
 
+import { useCookies } from 'react-cookie';
 import useSelector from "../hooks/use-selector";
+import useStore from '../hooks/use-store';
 
 import Main from "./main";
 import Basket from "./basket";
@@ -23,8 +26,17 @@ import PageLayout from '../components/page-layout';
  * Маршрутизация по страницам и модалкам
  */
 function App() {
+  const store = useStore();
+
+  const [cookies] = useCookies(['token']);
 
   const activeModal = useSelector(state => state.modals.name);
+
+  useEffect(() => {
+    if (cookies.token) {
+      store.actions.auth.getProfile(cookies.token);
+    }
+  }, [cookies.token])
 
   return <>
     {activeModal === 'basket' && <Basket />}

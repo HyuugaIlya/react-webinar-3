@@ -91,26 +91,22 @@ class AuthProfileState extends StoreModule {
       isFetching: true
     });
 
-    try {
-      const response = await fetch(`api/v1/users/sign`, {
-        method: "delete",
-        headers: {
-          'X-Token': token,
-          'Content-Type': 'application/json'
-        },
-      });
+    const response = await fetch(`api/v1/users/sign`, {
+      method: "delete",
+      headers: {
+        'X-Token': token,
+        'Content-Type': 'application/json'
+      },
+    });
 
-      if (response.ok) {
-        this.setState({
-          ...this.getState(),
-          user: {},
-          token: '',
-          isAuth: false,
-          isFetching: false
-        })
-      }
-    } catch (e) {
-      console.log(e.message);
+    if (response.ok) {
+      this.setState({
+        ...this.getState(),
+        user: {},
+        token: '',
+        isAuth: false,
+        isFetching: false
+      })
     }
   }
 }

@@ -27,7 +27,7 @@ function CatalogFilter() {
     category: state.catalog.params.category,
 
     //Catalog Categories Data
-    categories: state.catalog.categories
+    categories: state.categories.items
   }));
 
   const callbacks = {

@@ -19,7 +19,6 @@ class CatalogState extends StoreModule {
         query: '',
         category: ''
       },
-      categories: [],
       count: 0,
       waiting: false
     }
@@ -52,65 +51,6 @@ class CatalogState extends StoreModule {
     const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
     await this.setParams(params);
-  }
-
-  /**
-   * Установка категорий товаров
-   * @return {Promise<void>}
-   */
-  async setCategories() {
-    // Установка признака загрузки
-    this.setState({
-      ...this.getState(),
-      waiting: true
-    });
-
-    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
-    const json = await response.json();
-
-    const items = json.result.items;
-
-    // Сортировка категорий товаров в соответствии с родительскими id
-    let result = [];
-    for (let i = 0; i < items.length; i++) {
-      if (!items[i].parent?._id) {
-        result = [...result, items[i]];
-        const temp = items.filter(item => item._id !== items[i]._id && item.parent);
-
-        for (let j = 0; j < temp.length; j++) {
-          const parentItem = temp[j].parent?._id === items[i]._id;
-
-          if (parentItem) {
-            result = [...result, {
-              ...temp[j],
-              title: (' - ' + temp[j].title)
-            }];
-
-            const temp1 = temp.filter(item => item.parent?._id === temp[j]._id)
-            if (temp1) {
-              temp1.forEach(item => {
-                result = [...result, {
-                  ...item,
-                  title: (' - - ' + item.title)
-                }];
-              });
-            } else {
-              continue
-            }
-          } else {
-            continue
-          }
-        }
-      } else {
-        continue
-      }
-    };
-
-    this.setState({
-      ...this.getState(),
-      categories: result,
-      waiting: false
-    }, 'Установлен отсортированный список категорий');
   }
 
   /**

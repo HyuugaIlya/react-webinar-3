@@ -1,7 +1,6 @@
 import {
   memo,
   useCallback,
-  useEffect,
 } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -20,12 +19,6 @@ function LoginHeadContainer() {
 
   const [cookies, _, removeCookie] = useCookies(['token']);
 
-  useEffect(() => {
-    if (cookies.token) {
-      store.actions.auth.getProfile(cookies.token);
-    }
-  }, [])
-
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
@@ -39,7 +32,7 @@ function LoginHeadContainer() {
     onLogout: useCallback(() => {
       store.actions.auth.logout(cookies.token);
       removeCookie('token');
-    }, [store])
+    }, [store, cookies.token])
   }
 
   return (
