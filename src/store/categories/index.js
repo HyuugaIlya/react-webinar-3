@@ -20,7 +20,7 @@ class CategoriesState extends StoreModule {
    * Загрузка списка товаров
    */
   async load() {
-    this.setState({...this.getState(), waiting: true}, 'Ожидание загрузки категорий');
+    this.setState({ ...this.getState(), waiting: true }, 'Ожидание загрузки категорий');
 
     const res = await this.services.api.request({
       url: `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`
